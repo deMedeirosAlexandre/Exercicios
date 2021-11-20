@@ -20,6 +20,6 @@ public class Grupo03Ex15 {
 		
 		sc.close();		
 		Arrays.sort(lista);		
-		System.out.println(lista[9]);		
+		System.out.println(lista[99]);		
 	}
 }

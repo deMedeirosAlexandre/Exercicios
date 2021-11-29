@@ -13,20 +13,23 @@ import java.util.Scanner;
 //ii.   a média de idade dos homens.
 //iii.  a quantidade de mulheres com altura entre 1,60 e 1,70 e peso acima de 70kg.
 //iv.  a quantidade de pessoas com idade entre 18 e 25.
-//v.   o nome do paciente mais velho.
+//v.   o nome do paciente mais velho. 
 //vi.  o nome da mulher mais baixa.
 //vii. – neste item, você cria uma situação interessante constrói o algoritmo correspondente.   
 
 public class Grupo03Ex17 {
 	
-	@SuppressWarnings("unlikely-arg-type")
+
 	public static void main (String[] args) {
 		
-		
-		Scanner sc = new Scanner (System. in);
 		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner (System. in);
 		
 		
+		int somaIdadeHomens = 0;
+		int somaAlturaEpeso = 0;
+		int somaIdade18A25 = 0;
+		int IdadeDoMaisVelho = 0;
 		
 		ArrayList <String> nomes = new ArrayList<String>();
 		ArrayList <String> sexo = new ArrayList<>();
@@ -34,41 +37,80 @@ public class Grupo03Ex17 {
 		ArrayList <Integer> idade = new ArrayList<Integer>();
 		ArrayList <Double> altura = new ArrayList<Double>();		
 		
-
+		for(int i = 0; i <= nomes.size(); i++ ) {		
 		
-		
-		
-		
-		
-		for(int i = 0; i <= nomes.size(); i++ ) {
-		
-		
-			System.out.println("Digite o nome");
-			nomes.add(i, sc.next());
+			System.out.println("Digite o nome");	
+			String inicio = sc.next();			
 						
-			if(nomes.equals("fim")) {
+			if(inicio.equals("fim")) {
 				
 			i = i + 1 ;
 				
 			}
 			else {
+				
+				nomes.add(i,inicio);	
 			
-			System.out.println("Digite o sexo");
-			sexo.add(i,sc.next());
+				System.out.println("Digite o sexo");
+				String sexoInicio = sc.next();
+				sexo.add(i,sexoInicio);
 			
-			System.out.println("Digite o peso");
-			peso.add(i,sc.nextDouble());
+				System.out.println("Digite o peso");
+				double pesoInicio = sc.nextDouble();
+				peso.add(i,pesoInicio);
 			
-			System.out.println("Digite a idade");
-			idade.add(i,sc.nextInt());
+				System.out.println("Digite a idade");
+				int idadeInicio = sc.nextInt();
+						
+				idade.add(i,idadeInicio);			
 			
-			System.out.println("Digite a altura");
-			altura.add(i,sc.nextDouble());
+				System.out.println("Digite a altura");
+				double alturaInicio = sc.nextDouble();
+				altura.add(i,alturaInicio);			
+			
+				if(sexoInicio.equals("M")) {				
+					somaIdadeHomens = somaIdadeHomens + idadeInicio;
+					double mediaDeIdadeHomens = somaIdadeHomens / idade.size();	
+				
+				}
+			
+				
+			
+				if(idadeInicio > 18 && idadeInicio < 25) {
+					somaIdade18A25 = somaIdade18A25 + 1; 
+				
+				}			
+			}			
+		}
+		
+		
+		
+		for(int i = 0; i <= nomes.size(); i++ ) {				
+			
+				int comparador = idade.get(i);
+				
+				if(comparador > IdadeDoMaisVelho) {
+					IdadeDoMaisVelho = comparador;					
+				}				
 			}
 			
-		}
+		
+		
+		
+		
+		
+		
+		
+		System.out.println("Quantidade de pacientes: " + sexo.size());
+		System.out.println("Média de idade dos homens: " + (somaIdadeHomens / idade.size()));
+		System.out.println("quantidade de mulheres com altura entre 1,60 e 1,70 e peso acima de 70kg: " );
+		System.out.println("Pessoas entre 18 e 25 anos: " + somaIdade18A25);
+		System.out.println("O nome do paciente mais velho " + nomes.indexOf(IdadeDoMaisVelho));
+		System.out.println(sexo.indexOf("F"));
 			
-			
+		
+		
+		
 		
 		
 		sc.close();

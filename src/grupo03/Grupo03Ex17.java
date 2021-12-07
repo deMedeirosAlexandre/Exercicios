@@ -1,6 +1,7 @@
 package grupo03;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -18,120 +19,136 @@ import java.util.Scanner;
 //vii. – neste item, você cria uma situação interessante constrói o algoritmo correspondente.   
 
 public class Grupo03Ex17 {
-	
 
-	public static void main (String[] args) {
-		
+	public static void main (String[] args) {		
 		Locale.setDefault(Locale.US);
+		List<Paciente> pacientes = preencherListaPacientes();
+		exibeRelatorio(pacientes);		
+	}
+	
+	public static void exibeRelatorio(List<Paciente> pacientes) {
+		
+		System.out.println("Relatório de pacientes da clínica: ");
+		System.out.println("Total de pacientes cadastrados na clínica: " + pacientes.size());
+		System.out.println("Média de idade dos homens: " + calcularMediaIdadeHomens(pacientes));
+		System.out.println("Mulheres com altura entre 1.60 e 1.70 e peso acima de 70 Kg: " 
+		+ calculoDaAlturaEpesoDasMulheresQueEstaoEntre160E170CentimetrosDeAlturaEpesoAcimaDe70Quilos(pacientes));
+		System.out.println("Paciente mais velho: " + metodoParaEncontrarPacienteMaisVelhoDentroDaLista(pacientes));
+		System.out.println("Mulher com menor estatura: " + metodoParaEncontrarAmulherComMenorEstaturaDentroDaLista(pacientes));
+		System.out.printf("IMC de cada paciente: " + nomeDeCadaPacienteDocalculoDoIndiceDeMassaCorporeaDosPacientesCadastradosNaClinica(pacientes) + "%n" +
+		calculoDoIndiceDeMassaCorporeaDosPacientesCadastradosNaClinica(pacientes));		
+	}	
+	
+	public static List<Paciente> preencherListaPacientes(){
 		Scanner sc = new Scanner (System. in);
 		
+		List<Paciente> pacientes = new ArrayList<>();
+		while(true) {
+			
+			Paciente paciente = new Paciente();
+			System.out.println("Digite o nome do paciente: ");
+			String nome = sc.next();
+			if(nome.equals("fim")) break;
+			paciente.nome = nome;
+			System.out.println("Digite o sexo do paciente (F - Feminino, M - Masculino): ");
+			paciente.sexo = sc.next();
+			System.out.println("Digite o peso do paciente: ");
+			paciente.peso = sc.nextDouble();
+			System.out.println("Digite a altura do paciente em centimetros: ");
+			paciente.altura = sc.nextInt();
+			System.out.println("Digite a idade do paciente: ");
+			paciente.idade = sc.nextInt();
+			pacientes.add(paciente);
+			System.out.println("Paciente " + nome + " cadastrado com sucesso");			
+		}		
+		sc.close();
+		return pacientes;	
+	}
+			
+	public static double calcularMediaIdadeHomens(List<Paciente> pacientes) {
 		
-		int somaIdadeHomens = 0;
-		int somaAlturaEpeso = 0;
-		int somaIdade18A25 = 0;
-		int IdadeDoMaisVelho = 0;
 		
-		ArrayList <String> nomes = new ArrayList<String>();
-		ArrayList <String> sexo = new ArrayList<>();
-		ArrayList <Double> peso = new ArrayList<Double>();
-		ArrayList <Integer> idade = new ArrayList<Integer>();
-		ArrayList <Double> altura = new ArrayList<Double>();		
+		double contadorHomens = 0.0;
+		double somaIdadeHomens = 0.0;
 		
-		for(int i = 0; i <= nomes.size(); i++ ) {		
-		
-			System.out.println("Digite o nome");	
-			String inicio = sc.next();			
-						
-			if(inicio.equals("fim")) {
-				
-			i = i + 1 ;
-				
-			}
-			else {
-				
-				nomes.add(i,inicio);	
-			
-				System.out.println("Digite o sexo");
-				String sexoInicio = sc.next();
-				sexo.add(i,sexoInicio);
-			
-				System.out.println("Digite o peso");
-				double pesoInicio = sc.nextDouble();
-				peso.add(i,pesoInicio);
-			
-				System.out.println("Digite a idade");
-				int idadeInicio = sc.nextInt();
-						
-				idade.add(i,idadeInicio);			
-			
-				System.out.println("Digite a altura");
-				double alturaInicio = sc.nextDouble();
-				altura.add(i,alturaInicio);			
-			
-				if(sexoInicio.equals("M")) {				
-					somaIdadeHomens = somaIdadeHomens + idadeInicio;
-					double mediaDeIdadeHomens = somaIdadeHomens / idade.size();	
-				
-				}
-			
-				
-			
-				if(idadeInicio > 18 && idadeInicio < 25) {
-					somaIdade18A25 = somaIdade18A25 + 1; 
-				
-				}			
+		for(Paciente p: pacientes) {
+			if(p.sexo.equals("M")) {
+				contadorHomens ++;
+				somaIdadeHomens = somaIdadeHomens + p.idade;
 			}			
 		}
+		return somaIdadeHomens / contadorHomens;		
+	}
 		
+	public static int calculoDaAlturaEpesoDasMulheresQueEstaoEntre160E170CentimetrosDeAlturaEpesoAcimaDe70Quilos(List<Paciente> pacientes) {
+		int contadorMulheres = 0;
+		for(Paciente p: pacientes) {
+			if(p.sexo.equals("F")) {				
+				if(p.altura > 160 && p.altura < 170 && p.peso > 70) {
+					contadorMulheres = contadorMulheres + 1;					
+				}			
+			}		
+		}			
+		return contadorMulheres;		
+	}
 		
+	public static String metodoParaEncontrarPacienteMaisVelhoDentroDaLista(List<Paciente> pacientes) {
 		
-		for(int i = 0; i <= nomes.size(); i++ ) {				
-			
-				int comparador = idade.get(i);
+		Integer idadeDoMaisVelho = 0;
+		String nomeDoMaisVelho = null;
+		for(Paciente p: pacientes) {
+			if(p.idade > idadeDoMaisVelho) {
+				idadeDoMaisVelho =  p.idade;
+				nomeDoMaisVelho = p.nome;
 				
-				if(comparador > IdadeDoMaisVelho) {
-					IdadeDoMaisVelho = comparador;					
+			}			
+		}
+		return nomeDoMaisVelho;
+	}
+			
+	public static String metodoParaEncontrarAmulherComMenorEstaturaDentroDaLista(List<Paciente> pacientes) {
+		
+		String nomeDaMenorMulher = null;
+		Integer menorAltura = 1000;	
+		for(Paciente p: pacientes) {						
+			if(p.sexo.equals("F")) {
+				if(p.altura < menorAltura) {
+					menorAltura = p.altura;
+					nomeDaMenorMulher = p.nome;					
 				}				
-			}
+			}				
+		}		
+		return nomeDaMenorMulher;
+	}
+					
+	public static List<Double> calculoDoIndiceDeMassaCorporeaDosPacientesCadastradosNaClinica(List<Paciente> pacientes) {
+		
+		double imc = 0;
+		
+		List<Double> listaDeImc = new ArrayList<>();
+		for(Paciente p: pacientes) {
 			
-		
-		
-		
-		
-		
-		
-		
-		System.out.println("Quantidade de pacientes: " + sexo.size());
-		System.out.println("Média de idade dos homens: " + (somaIdadeHomens / idade.size()));
-		System.out.println("quantidade de mulheres com altura entre 1,60 e 1,70 e peso acima de 70kg: " );
-		System.out.println("Pessoas entre 18 e 25 anos: " + somaIdade18A25);
-		System.out.println("O nome do paciente mais velho " + nomes.indexOf(IdadeDoMaisVelho));
-		System.out.println(sexo.indexOf("F"));
+		double altura = p.altura;
+		double peso = p.altura;			
 			
-		
-		
-		
-		
-		
-		sc.close();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			imc = (altura*altura) / peso;	
+			
+			listaDeImc.add(imc);
+						
+		}
+		return listaDeImc;		
 		
 	}
-
+	
+	public static List<String> nomeDeCadaPacienteDocalculoDoIndiceDeMassaCorporeaDosPacientesCadastradosNaClinica(List<Paciente> pacientes) {
+		List<String> nomeDosPacientesImc = new ArrayList<>();
+		for(Paciente p: pacientes) {
+			
+		String nome = p.nome;			
+		nomeDosPacientesImc.add(nome);
+						
+		}
+		return nomeDosPacientesImc;		
+	}
+		
 }

@@ -42,27 +42,45 @@ public class Grupo03Ex17 {
 	public static List<Paciente> preencherListaPacientes(){
 		Scanner sc = new Scanner (System. in);
 		
+		
 		List<Paciente> pacientes = new ArrayList<>();
+		
 		while(true) {
 			
-			Paciente paciente = new Paciente();
+			String nome = null;
+			String sexo = null;
+			Double peso = null;
+			Integer altura = null;
+			Integer idade = null;
+			
+			Paciente paciente = new Paciente(nome, sexo, peso, altura, idade);
 			System.out.println("Digite o nome do paciente: ");
-			String nome = sc.next();
+			nome = sc.next();
 			if(nome.equals("fim")) break;
-			paciente.nome = nome;
+			paciente.setNome(nome);
 			System.out.println("Digite o sexo do paciente (F - Feminino, M - Masculino): ");
-			paciente.sexo = sc.next();
+			sexo = sc.next();
+			paciente.setSexo(sexo);
 			System.out.println("Digite o peso do paciente: ");
-			paciente.peso = sc.nextDouble();
+			peso = sc.nextDouble();
+			paciente.setPeso(peso);
 			System.out.println("Digite a altura do paciente em centimetros: ");
-			paciente.altura = sc.nextInt();
+			altura = sc.nextInt();
+			paciente.setAltura(altura);
 			System.out.println("Digite a idade do paciente: ");
-			paciente.idade = sc.nextInt();
+			idade = sc.nextInt();
+			paciente.setIdade(idade);	
+			
+			
 			pacientes.add(paciente);
+			
 			System.out.println("Paciente " + nome + " cadastrado com sucesso");			
-		}		
+		}	
+		
 		sc.close();
+		
 		return pacientes;	
+		
 	}
 			
 	public static double calcularMediaIdadeHomens(List<Paciente> pacientes) {
@@ -72,9 +90,9 @@ public class Grupo03Ex17 {
 		double somaIdadeHomens = 0.0;
 		
 		for(Paciente p: pacientes) {
-			if(p.sexo.equals("M")) {
+			if(p.isMasculino()) {
 				contadorHomens ++;
-				somaIdadeHomens = somaIdadeHomens + p.idade;
+				somaIdadeHomens = somaIdadeHomens + p.getIdade();
 			}			
 		}
 		return somaIdadeHomens / contadorHomens;		
@@ -83,8 +101,8 @@ public class Grupo03Ex17 {
 	public static int calculoDaAlturaEpesoDasMulheresQueEstaoEntre160E170CentimetrosDeAlturaEpesoAcimaDe70Quilos(List<Paciente> pacientes) {
 		int contadorMulheres = 0;
 		for(Paciente p: pacientes) {
-			if(p.sexo.equals("F")) {				
-				if(p.altura > 160 && p.altura < 170 && p.peso > 70) {
+			if(p.isFeminino()) {				
+				if(p.getAltura() > 160 && p.getAltura() < 170 && p.getPeso() > 70) {
 					contadorMulheres = contadorMulheres + 1;					
 				}			
 			}		
@@ -97,9 +115,9 @@ public class Grupo03Ex17 {
 		Integer idadeDoMaisVelho = 0;
 		String nomeDoMaisVelho = null;
 		for(Paciente p: pacientes) {
-			if(p.idade > idadeDoMaisVelho) {
-				idadeDoMaisVelho =  p.idade;
-				nomeDoMaisVelho = p.nome;
+			if(p.getIdade() > idadeDoMaisVelho) {
+				idadeDoMaisVelho = p.getIdade();
+				nomeDoMaisVelho = p.getNome();
 				
 			}			
 		}
@@ -111,10 +129,10 @@ public class Grupo03Ex17 {
 		String nomeDaMenorMulher = null;
 		Integer menorAltura = 1000;	
 		for(Paciente p: pacientes) {						
-			if(p.sexo.equals("F")) {
-				if(p.altura < menorAltura) {
-					menorAltura = p.altura;
-					nomeDaMenorMulher = p.nome;					
+			if(p.isFeminino()) {
+				if(p.getAltura() < menorAltura) {
+					menorAltura = p.getAltura();
+					nomeDaMenorMulher = p.getNome();					
 				}				
 			}				
 		}		
@@ -123,17 +141,13 @@ public class Grupo03Ex17 {
 					
 	public static List<Double> calculoDoIndiceDeMassaCorporeaDosPacientesCadastradosNaClinica(List<Paciente> pacientes) {
 		
-		double imc = 0;
+		
 		
 		List<Double> listaDeImc = new ArrayList<>();
 		for(Paciente p: pacientes) {
 			
-		double altura = p.altura;
-		double peso = p.altura;			
-			
-			imc = (altura*altura) / peso;	
-			
-			listaDeImc.add(imc);
+		
+			listaDeImc.add(p.getImc());
 						
 		}
 		return listaDeImc;		
@@ -144,7 +158,7 @@ public class Grupo03Ex17 {
 		List<String> nomeDosPacientesImc = new ArrayList<>();
 		for(Paciente p: pacientes) {
 			
-		String nome = p.nome;			
+		String nome = p.getNome();			
 		nomeDosPacientesImc.add(nome);
 						
 		}

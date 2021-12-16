@@ -12,15 +12,20 @@ public class Calculadora {
 		Scanner sc = new Scanner(System.in);		
 		
 		System.out.println("Digite o primeiro número + space + o operador matemático(+,-,* ou /) e em seguida o segundo número");
-		OperacoesDeCalculo operacoesDeCalculo = new OperacoesDeCalculo();
+		
+		
+		
 		
 		Integer primeiroNumero = sc.nextInt();
-		operacoesDeCalculo.setPrimeiroNumero(primeiroNumero);
+		//operacoesDeCalculo.setPrimeiroNumero(primeiroNumero);
 		String operador = sc.next();
-		operacoesDeCalculo.setOperador(operador);
+		// operacoesDeCalculo.setOperador(operador);
 		Integer segundoNumero = sc.nextInt();
-		operacoesDeCalculo.setSegundoNumero(segundoNumero);
+		//operacoesDeCalculo.setSegundoNumero(segundoNumero);
 		sc.close();		
+		
+		OperacoesDeCalculo operacoesDeCalculo = new OperacoesDeCalculo(primeiroNumero,segundoNumero, operador);
+		
 		
 		operacoesDeCalculo.imprimirResultado();		
 	}		

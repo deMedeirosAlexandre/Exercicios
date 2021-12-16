@@ -1,17 +1,46 @@
 package grupo03;
 
+
+
 public class OperacoesDeCalculo {	
 	
 	private Integer primeiroNumero;
 	private Integer segundoNumero;
 	private String operador;
-	private Double resultado;	
-
+	
+	
+	
+	//respeitar ordem no construtor e qualquer parametro -- sempre nome da classe e ao construir um objeto com parametros indispensaveis
+	public OperacoesDeCalculo (Integer primeiroNumero, Integer segundoNumero, String operador) {
+		this.segundoNumero = segundoNumero;
+		this.primeiroNumero = primeiroNumero;		
+		this.operador = operador;		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public void imprimirResultado() {		
 		
 		if(operador.equals("+")) {
 		
 		System.out.println(calcularSoma());
+		
+		
+		
+		
+		
 		}
 		if(operador.equals("-")) {
 			
@@ -29,43 +58,49 @@ public class OperacoesDeCalculo {
 	
 	public Double calcularSoma() {	
 		
-		switch (operador){			
-		case "+":			
-			resultado = (double) primeiroNumero + segundoNumero;							
-			break;			
-	}	
-		return resultado;
-	}	
+	//	switch (operador){			
+		//case "+":			
+		//	resultado = (double) primeiroNumero + segundoNumero;							
+		//	break;			
+	//}	
+	//	return resultado;
+	//}	
+	
+		//if(operador.equals("+")) {			
+			
+		return (double) primeiroNumero + segundoNumero;			
+		//}
+		
+	}
 	
 	
 	public Double calcularSubtracao() {		
-		switch (operador){			
-		case "-":	
+		//switch (operador){			
+		//case "-":	
 			
-			resultado = (double) primeiroNumero - segundoNumero;						
-			break;				
-	}	
-		return resultado;
+		return (double) primeiroNumero - segundoNumero;						
+			//break;				
+	//}	
+		
 	}
 	
 	
 	public Double calcularMultiplicacao() {		
-		switch (operador){			
-		case "*":				
-			resultado = (double) primeiroNumero * segundoNumero;						
-			break;				
-	}	
-		return resultado;	
+		//switch (operador){			
+		//case "*":				
+		return (double) primeiroNumero * segundoNumero;						
+			//break;				
+	//}	
+			
 	}	
 	
 	
 	public Double calcularDivisao() {		
-		switch (operador){			
-		case "/":				
-			resultado = (double) primeiroNumero / segundoNumero;						
-			break;				
-	}	
-		return resultado;	
+		//switch (operador){			
+		//case "/":				
+		return (double) primeiroNumero / segundoNumero;						
+		//	break;				
+	//}		
 	}
 
 	
